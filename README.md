@@ -2,6 +2,7 @@
   <h1>💸 Personal Expense Analytics Dashboard</h1>
   <p>An interactive, data-driven web dashboard built in Python to track, manage, and visualize personal expenses.</p>
 </div>
+<img width="919" height="962" alt="image" src="https://github.com/user-attachments/assets/2cfc0b87-f2dd-4d04-90c8-c6f5c59c3558" />
 
 ## 📌 Project Overview
 This project was developed as a comprehensive exercise in **Exploratory Data Analysis (EDA)**, **Object-Oriented Programming (OOP) in Python**, and **Interactive Data Visualization**. It takes raw user financial inputs and transforms them into actionable insights using industry-standard Data Science libraries.
