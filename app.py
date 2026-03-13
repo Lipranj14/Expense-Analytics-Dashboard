@@ -37,39 +37,42 @@ if st.sidebar.button("🗑️ Reset All Data", type="primary"):
     st.rerun()
 
 # Main dashboard area
-col1, col2 = st.columns([1, 1]) # Split the screen into two equal columns
+st.subheader("📊 Your Expense Data")
 
-with col1:
-    st.subheader("📊 Your Expense Data")
-    # Show the Pandas DataFrame natively in Streamlit
-    st.dataframe(tracker.df, use_container_width=True)
-    
-    # Calculate and show a metric
-    total = tracker.get_total_expenses()
-    st.metric(label="Total Expenses", value=f"₹{total:.2f}")
+# Calculate and show a metric
+total = tracker.get_total_expenses()
+st.metric(label="Total Expenses", value=f"₹{total:.2f}")
 
-with col2:
-    st.subheader("📈 Spending Analysis (EDA)")
-    category_data = tracker.get_expenses_by_category()
+# Show the Pandas DataFrame natively in Streamlit
+st.dataframe(tracker.df, use_container_width=True)
+
+st.markdown("---")
+st.subheader("📈 Spending Analysis (EDA)")
+
+category_data = tracker.get_expenses_by_category()
+
+if not category_data.empty:
+    col1, col2 = st.columns(2)
     
-    if not category_data.empty:
+    with col1:
         # Create a Seaborn Bar chart
-        fig, ax = plt.subplots(figsize=(8, 5))
+        st.markdown("<h4 style='text-align: center;'>Total Expenses by Category</h4>", unsafe_allow_html=True)
+        fig, ax = plt.subplots(figsize=(6, 5))
         sns.barplot(data=category_data, x="Category", y="Amount", palette="viridis", ax=ax)
-        ax.set_title("Total Expenses by Category")
+        plt.xlabel("") # Remove the x-label label "Category" since it's obvious, cleaner look
+        plt.ylabel("Amount (₹)")
         plt.xticks(rotation=45)
         st.pyplot(fig) # Render Matplotlib/Seaborn inside Streamlit
         
-        st.markdown("---") # Divider
-        
+    with col2:
         # Create a Matplotlib Pie chart
-        fig_pie, ax_pie = plt.subplots(figsize=(6, 6))
+        st.markdown("<h4 style='text-align: center;'>Spending Distribution</h4>", unsafe_allow_html=True)
+        fig_pie, ax_pie = plt.subplots(figsize=(6, 5))
         
         # Use a nice seaborn color palette for the pie chart
         colors = sns.color_palette("pastel")[0:len(category_data)]
-        ax_pie.pie(category_data["Amount"], labels=category_data["Category"], autopct='%1.1f%%', startangle=90, colors=colors)
+        ax_pie.pie(category_data["Amount"], labels=category_data["Category"], autopct='%1.1f%%', startangle=90, colors=colors, textprops={'fontsize': 10})
         ax_pie.axis('equal') # Equal aspect ratio ensures circular pie chart
-        ax_pie.set_title("Spending Distribution")
         st.pyplot(fig_pie)
-    else:
-        st.info("No expenses added yet. Add some data from the sidebar to see the visualizations!")
+else:
+    st.info("No expenses added yet. Add some data from the sidebar to see the visualizations!")
