@@ -39,7 +39,7 @@ The application natively handles data persistence via CSV and dynamically visual
    ```bash
    streamlit run app.py
    ```
-   *The application will automatically launch in your default web browser.*
+
 
 ---
 
