@@ -18,9 +18,7 @@ An interactive web application built in Python to track, manage, and visualize p
 
 1. Clone the repository:
    ```bash
-   # Replace with your actual github link later
-   git clone https://github.com/Lipranj14/Expense_management.git
-   cd Expense_management
+   https://github.com/Lipranj14/Expense-Analytics-Dashboard
    ```
 
 2. Install the required dependencies:
